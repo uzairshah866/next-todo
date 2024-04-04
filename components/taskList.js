@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Tasks from "./Tasks";
+import Tasks from "./tasks";
 import { useStore } from "@/store";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
