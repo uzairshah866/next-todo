@@ -18,13 +18,26 @@ const Clock = () => {
         16
       )}`;
       document.body.style.backgroundColor = randomColor;
-      document.body.style.color = randomColor;
+
+      // Check brightness of the color
+      const colorBrightness =
+        (0.299 * parseInt(randomColor.substr(1, 2), 16) +
+          0.587 * parseInt(randomColor.substr(3, 2), 16) +
+          0.114 * parseInt(randomColor.substr(5, 2), 16)) /
+        255;
+
+      // Set text color based on brightness
+      if (colorBrightness > 0.5) {
+        document.body.style.color = "#000"; // Dark color for light backgrounds
+      } else {
+        document.body.style.color = "#fff"; // Light color for dark backgrounds
+      }
     }, 10000);
 
     return () => clearInterval(changeColorInterval);
   }, []);
 
-  return <div>{time.toLocaleTimeString()}</div>;
+  return <div className="text-2xl font-bold">{time.toLocaleTimeString()}</div>;
 };
 
 export default Clock;

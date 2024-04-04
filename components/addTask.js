@@ -3,12 +3,22 @@ import { useState } from "react";
 import { useStore } from "@/store";
 
 const AddTask = () => {
-  const addTask = useStore((state) => state.addTask);
+  const { tasks, addTask } = useStore((state) => ({
+    tasks: state.tasks,
+    addTask: state.addTask,
+  }));
   const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
+
+    const isTaskExist = tasks.some((task) => task.text === inputValue);
+    if (isTaskExist) {
+      alert("Task already exists!");
+      return;
+    }
+
     addTask(inputValue);
     setInputValue("");
   };
